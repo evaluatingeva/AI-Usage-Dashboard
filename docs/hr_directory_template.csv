@@ -1,0 +1,3 @@
+email,name,department,department_code,team,cost_center,employee_id,aliases,active
+jane.doe@yourfirm.com,Jane Doe,Audit & Assurance,AUD,FS Audit,CC-200,E10001,janedoe-gh;user_01AbC,1
+raj.patel@yourfirm.com,Raj Patel,Tax Advisory,TAX,Indirect Tax,CC-410,E10002,rpatel_firm,1

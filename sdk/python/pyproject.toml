@@ -1,0 +1,16 @@
+[project]
+name = "aiusage"
+version = "1.0.0"
+description = "Report AI usage (tokens, RAG, non-token units) to the central AI Usage Monitor"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+langchain = ["langchain-core>=0.3"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["aiusage"]

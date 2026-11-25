@@ -1,0 +1,46 @@
+# Local / single-VM deployment. For production see docs/DEPLOYMENT.md (AKS/EKS + managed Postgres).
+name: ai-usage-monitor
+
+services:
+  db:
+    image: timescale/timescaledb:2.17.2-pg16
+    environment:
+      POSTGRES_DB: aiusage
+      POSTGRES_USER: aiusage
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-aiusage}
+    ports: ["5432:5432"]
+    volumes: [dbdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aiusage -d aiusage"]
+      interval: 5s
+      retries: 20
+
+  api:
+    build: ./backend
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://aiusage:${POSTGRES_PASSWORD:-aiusage}@db:5432/aiusage
+    ports: ["8000:8000"]
+    depends_on:
+      db: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 10s
+      retries: 10
+
+  worker:
+    build: ./backend
+    command: ["python", "-m", "app.worker"]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://aiusage:${POSTGRES_PASSWORD:-aiusage}@db:5432/aiusage
+    depends_on:
+      api: { condition: service_healthy }
+
+  web:
+    build: ./frontend
+    ports: ["3000:80"]
+    depends_on: [api]
+
+volumes:
+  dbdata:
