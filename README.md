@@ -376,13 +376,3 @@ See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). In short:
 5. CI/CD: tests, SAST (Bandit, Semgrep), dependency and container scanning (Trivy), signed images.
 6. Connect Power BI to the read-only role (or the `usage_daily` aggregate) for finance reporting.
 
-## 11. Delivery roadmap
-
-| Phase | Weeks | Outcome |
-|---|---|---|
-| 0. Discovery | 1–2 | AI inventory, stakeholders (CIO, CFO, DPO, Risk), DPIA started, roles agreed |
-| 1. MVP | 3–6 | This starter deployed in a dev subscription; 2–3 collectors live; SSO; demo to sponsors |
-| 2. Coverage | 7–10 | All vendor collectors; AI gateway for internal apps; SDK in top RAG apps; directory sync |
-| 3. Finance | 11–14 | Negotiated price catalogue, reconciliation to invoices, budgets + alerts, chargeback into the GL |
-| 4. Hardening | 15–18 | Pen test, DPIA sign-off, SIEM integration, DR test, go-live |
-| 5. Optimise | ongoing | Idle-seat reclamation, model right-sizing, anomaly detection, forecasting |
